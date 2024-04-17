@@ -15,10 +15,14 @@ app.get('/expressions', (req, res, next) => {
   res.send(expressions);
 });
 
-// Add a new call to app.get('/expressions/:id') here
 app.get('/expressions/:id', (req, res, next) => {
-  res.send(getElementById(req.params.id, expressions));
-})
+  const foundExpression = getElementById(req.params.id, expressions);
+  if (foundExpression) {
+     res.send(foundExpression);
+  } else {
+      res.status(404).send("Expression not found");
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
