@@ -1,13 +1,19 @@
 const express = require('express');
 const app = express();
+const { seedElements } = require('./utils');
 
-const PORT = process.env.PORT || 4001;
-// Use static server to serve the Express Yourself Website
+// Serves Express Yourself website
 app.use(express.static('public'));
 
-// Open a call to `app.get()` below:
+const PORT = process.env.PORT || 4001;
+
+const expressions = [];
+seedElements(expressions, 'expressions');
+
+// Get all expressions
 app.get('/expressions', (req, res, next) => {
-  console.log(`${req}`);
+  // console.log(req);
+  res.send(expressions);
 });
 
 app.listen(PORT, () => {
